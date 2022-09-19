@@ -1,1 +1,74 @@
-<p>job-form works!</p>
+<app-navbar [title]="id ? 'Update Job' : 'Create New Job'"></app-navbar>
+
+<mat-card class="my-card">
+  <mat-card-content>
+    <form [formGroup]="jobForm" class="my-form">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Job Number" formControlName="job_number" />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Job Title" formControlName="job_title" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Job Start and Close date </mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            formControlName="job_start_date"
+          />
+          <input
+            matEndDate
+            placeholder="Close date"
+            formControlName="job_close_date"
+          />
+        </mat-date-range-input>
+        <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <section class="example-section">
+        <label class="example-margin">Experiece Required:</label>
+        <mat-radio-group formControlName="experience_required">
+          <mat-radio-button class="example-margin" [value]="true"
+            >Yes</mat-radio-button
+          >
+          <mat-radio-button class="example-margin" [value]="false"
+            >No</mat-radio-button
+          >
+        </mat-radio-group>
+      </section>
+
+      <mat-form-field class="full-width">
+        <input
+          type="number"
+          matInput
+          placeholder="Number of openings"
+          formControlName="number_of_openings"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          placeholder="Job Notes"
+          matTextareaAutosize
+          matAutosizeMinRows="2"
+          matAutosizeMaxRows="5"
+          formControlName="job_notes"
+        ></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="button"
+      [disabled]="!jobForm.valid"
+      (click)="onSubmit()"
+    >
+      {{ id ? "Update Job" : "Create Job" }}
+    </button>
+  </mat-card-actions>
+</mat-card>
